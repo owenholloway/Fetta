@@ -77,7 +77,7 @@ namespace Fetta.Model
 
             foreach (var metric in _metrics)
             {
-                birthMessage.CreateMetric(metric.datatype, metric.value, metric.name);
+                birthMessage.CreateMetric(metric.Datatype, metric.value, metric.Name);
             }
             
             var birthPayloadMessage = birthMessage.CreateDto();
@@ -123,14 +123,14 @@ namespace Fetta.Model
         }
         public async Task UpdateMetric(string metricName, object value)
         {
-            if (_metrics.Any(m => m.name.Equals(metricName)))
+            if (_metrics.Any(m => m.Name.Equals(metricName)))
             {
                 var dataMessage = Model.Payload.Create(_lastPayload);
-                var metric = _metrics.Find(m => m.name.Equals(metricName));
+                var metric = _metrics.Find(m => m.Name.Equals(metricName));
                 
                 //Asserted not null due to if statement above
                 Debug.Assert(metric != null, nameof(metric) + " != null");
-                dataMessage.CreateMetric(metric.datatype, value, metric.name);
+                dataMessage.CreateMetric(metric.Datatype, value, metric.Name);
                 dataMessage.CreateMetric(ValueTypeEnum.ulong_value, _seq, "bdSeq");
                 
                 var dataMessageDto = dataMessage.CreateDto();
@@ -174,9 +174,9 @@ namespace Fetta.Model
         {
             var metric = new Metric();
 
-            metric.datatype = datatype;
+            metric.Datatype = datatype;
             metric.value = value;
-            metric.name = name;
+            metric.Name = name;
             
             _metrics.Add(metric);
         }

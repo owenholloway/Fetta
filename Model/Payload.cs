@@ -32,9 +32,9 @@ namespace Fetta.Model
         {
             var metric = new Metric();
 
-            metric.datatype = datatype;
+            metric.Datatype = datatype;
             metric.value = value;
-            metric.name = name;
+            metric.Name = name;
             
             metrics.Add(metric);
         }
@@ -52,16 +52,16 @@ namespace Fetta.Model
             foreach (var metric in metrics)
             {
 
-                switch (metric.datatype)
+                switch (metric.Datatype)
                 {
                     
                     case ValueTypeEnum.int_value:
                         var intMetricDto = new MetricIntDto
                         {
                             intValue = (uint)metric.value,
-                            timestamp = metric.timestamp,
-                            name = metric.name,
-                            datatype = (uint)metric.datatype 
+                            timestamp = metric.Timestamp,
+                            name = metric.Name,
+                            datatype = (uint)metric.Datatype 
                         };
                         payloadDto.metrics.Add(intMetricDto);
                         break;
@@ -71,9 +71,9 @@ namespace Fetta.Model
                         var uIntMetricDto = new MetricUIntDto
                         {
                             intValue = (uint)metric.value,
-                            timestamp = metric.timestamp,
-                            name = metric.name,
-                            datatype = (uint)metric.datatype 
+                            timestamp = metric.Timestamp,
+                            name = metric.Name,
+                            datatype = (uint)metric.Datatype 
                         };
                         payloadDto.metrics.Add(uIntMetricDto);
                         break;
@@ -83,9 +83,9 @@ namespace Fetta.Model
                         var uLongMetricDto = new MetricULongDto()
                         {
                             longValue = (ulong)metric.value,
-                            timestamp = metric.timestamp,
-                            name = metric.name,
-                            datatype = (uint)metric.datatype 
+                            timestamp = metric.Timestamp,
+                            name = metric.Name,
+                            datatype = (uint)metric.Datatype 
                         };
                         payloadDto.metrics.Add(uLongMetricDto);
                         break;
@@ -95,9 +95,9 @@ namespace Fetta.Model
                         var floatMetricDto = new MetricFloatDto
                         {
                             floatValue = (float) metric.value,
-                            timestamp = metric.timestamp,
-                            name = metric.name,
-                            datatype = (uint)metric.datatype 
+                            timestamp = metric.Timestamp,
+                            name = metric.Name,
+                            datatype = (uint)metric.Datatype 
                         };
                         payloadDto.metrics.Add(floatMetricDto);
                         break;
@@ -107,9 +107,9 @@ namespace Fetta.Model
                         var stringMetricDto = new MetricStringDto
                         {
                             stringValue = (string) metric.value,
-                            timestamp = metric.timestamp,
-                            name = metric.name,
-                            datatype = (uint)metric.datatype 
+                            timestamp = metric.Timestamp,
+                            name = metric.Name,
+                            datatype = (uint)metric.Datatype 
                         };
                         payloadDto.metrics.Add(stringMetricDto);
                         break;
@@ -119,9 +119,9 @@ namespace Fetta.Model
                         var booleanMetricDto = new MetricBooleanDto()
                         {
                             booleanValue = (bool) metric.value,
-                            timestamp = metric.timestamp,
-                            name = metric.name,
-                            datatype = (uint)metric.datatype 
+                            timestamp = metric.Timestamp,
+                            name = metric.Name,
+                            datatype = (uint)metric.Datatype 
                         };
                         payloadDto.metrics.Add(booleanMetricDto);
                         break;
