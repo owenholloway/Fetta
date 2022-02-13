@@ -44,7 +44,6 @@ namespace Fetta.Model
             obj.CreateMetric(ValueTypeEnum.string_value, "0.0.1","Properties/Hardware Make");
             obj.CreateMetric(ValueTypeEnum.boolean_value, false, "Node Control/Next Server");
             obj.CreateMetric(ValueTypeEnum.boolean_value, false, "Node Control/Rebirth");
-            //obj.CreateMetric(ValueTypeEnum.string_value, "4.0.10", "Node Info/Transmission Version");
             obj.CreateMetric(ValueTypeEnum.ulong_value, (ulong)1, "bdSeq");
 
             return obj;
@@ -84,9 +83,7 @@ namespace Fetta.Model
             var birthPayloadMessage = birthMessage.CreateDto();
 
             var birthMessageJson = Newtonsoft.Json.JsonConvert.SerializeObject(birthPayloadMessage);
-            
-            Console.WriteLine(birthMessageJson);
-            
+
             var birthPayload = Lib.Tahu.Payload.Parser.ParseJson(birthMessageJson);
 
             var nBirthTopic = "spBv1.0/" + _groupId + "/NBIRTH/" + _edgeNodeId;
@@ -102,6 +99,28 @@ namespace Fetta.Model
 
         }
 
+        private async Task DeathDevice()
+        {
+            var deathMessage = Model.Payload.Create();
+            _seq = 0;
+
+            var deathPayloadMessage = deathMessage.CreateDto();
+
+            var deathMessageJson = Newtonsoft.Json.JsonConvert.SerializeObject(deathPayloadMessage);
+
+            var birthPayload = Lib.Tahu.Payload.Parser.ParseJson(deathMessageJson);
+
+            var nBirthTopic = "spBv1.0/" + _groupId + "/NDEATH/" + _edgeNodeId;
+            
+            var nMessageBuilt = new MqttApplicationMessageBuilder()
+                .WithTopic(nBirthTopic)
+                .WithPayload(birthPayload.ToByteString())
+                .Build();
+            
+            await _mqttClient.PublishAsync(nMessageBuilt, CancellationToken.None);
+            _seq += 1;
+            _lastPayload = deathMessage;
+        }
         public async Task UpdateMetric(string metricName, object value)
         {
             if (_metrics.Any(m => m.name.Equals(metricName)))
